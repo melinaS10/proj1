@@ -1,0 +1,105 @@
+<!-- JEST JOKE SIMULATOR -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JEST: Joke simulator</title> 
+    <script src="assets/scripts.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <link href="https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+<!-- Sidebar navigation -->
+<aside>
+	<div class="sidenav" id="mySidenav">
+		<a href="#home">Home</a>
+		<a href="#dad">Dad Jokes</a>
+		<a href="#dt">Donald Trump jokes</a>
+		<a href="#random">Random Jokes</a>
+        <a href="#about">About</a>
+	</div>
+</aside>
+<main>
+    
+    <!-- Logo and title -->
+    <section class="hero" id="home">
+		<div class="row">
+			<div class="col">
+          <img id="logo" src="assets/images/logo.png">
+                
+                <h2>Joke Simulator</h2>
+			</div>
+		</div>
+	</section>
+    
+    <!-- Section 1: Dad jokes -->
+	<section id="dad">
+		<div class="row">
+			<div class="col">
+				<header class="headline">
+					<h3>Dad Jokes</h3>
+				</header>
+			</div>
+		</div>
+		
+        <p id = "djokes"></p>
+        <button id="button" onclick = "telljokes()">
+        Generate</button>
+
+    </section>
+    
+    <!-- Section 2: Donald Trump jokes -->
+    <section id='dt'>
+		<div class="row" id="dt">
+			<div class="col">
+                <header class="headline">
+					<h3>Donald Trump Jokes</h3>
+				</header>
+            </div>
+		</div>
+        
+        <p id = "dtjokes"></p>
+        <button id="button" onclick = "telldtjokes()">
+        Generate</button>
+        
+    </section>
+
+    <!-- Section 3: Random jokes -->
+	<section id="random">
+		<div class="row">
+			<div class="col">
+				<header class="headline">
+					<h3>Random Jokes</h3>
+				</header>
+			</div>
+		</div>
+            
+           <p id = "rjokes"></p>
+                 <button id="button" onclick = "tellrjokes()">
+                  Generate</button>
+                  
+	</section>
+    
+    <!-- Section 4: About -->
+    <section id="about">
+		<div class="row">
+			<div class="col">
+				<header class="headline">
+					<h3>About</h3>
+				</header>
+			</div>
+		</div>
+        <p class="abt">Jest is an instant joke simulator that can be used anywhere, at anytime. The aim of the application is to provide entertainment and novelty fun at parties and events. </p>
+	</section>
+    
+	<footer>
+		<div class="row-halves">
+			<div class="col">
+				<p>Melina Seserko |  Major Project  |  2020</p>
+			</div>
+		</div>
+	</footer>
+</main>
+</body>
+</html>
