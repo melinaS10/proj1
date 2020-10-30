@@ -1,271 +1,91 @@
-class InvalidArgumentException {
-  constructor (argument, value, message) {
-    this.name = 'InvalidArgumentException'
-    this.argument = argument
-    this.value = value
-    
-    if (typeof message !== 'undefined') {
-      this.message = message
-    } else {
-      this.message = `Invalid argument ${argument} with value: ${value}.`;
-    }
-  }
-  
-  getArgument () {
-    return this.argument
-  }
-  
-  getValue () {
-    return this.value
-  }
-    
-  getMessage () {
-    return this.message
-  }
+//JEST JOKE SIMULATOR SCRIPT
+
+var jokecount = 0
+
+//source: https://www.countryliving.com/life/a27452412/best-dad-jokes/
+
+var djokes = [
+  "How do you get a squirrel to like you? Act like a nut.",
+  "I don't trust stairs. They're always up to something.", 
+  "This graveyard looks overcrowded. People must be dying to get in.",
+  "What time did the man go to the dentist? Tooth hurt-y.",
+  "What do you call cheese that isn't yours? Nacho cheese.",
+  "I'm on a seafood diet. I see food and I eat it.",
+  "I used to hate facial hair...but then it grew on me.",
+  "What do you call an elephant that doesn't matter? An irrelephant.",
+  "If you see a crime at an Apple Store, does that make you an iWitness?",
+  "Wanna hear a joke about paper? Never mind—it's tearable.",
+  "When does a joke become a dad joke? When it becomes apparent.",
+  "Why are elevator jokes so classic and good? They work on many levels.",
+  "What did the fish say when he hit the wall? Dam.",
+  "Don't trust atoms. They make up everything!"
+]
+function telljokes(){
+ document.getElementById("djokes").innerHTML = djokes[jokecount]
+ jokecount += 1 
+if(jokecount > djokes.length -1){
+  jokecount = 0
+}
+ 
 }
 
-class DadJokeApi {
-  constructor () {
-    this.apiUrl = 'https://icanhazdadjoke.com'
-    this.id = null
-    this.count = null
-    this.cache = {}
-  }
-  
-  /**
-   * Retrieves the count of jokes from the API and calls the given
-   * callback with the count as first parameter. If the API call
-   * wasn't successfull the count is NULL.
-   */
-  getCount (callback) {
-    if (!(callback instanceof Function)) {
-      throw new InvalidArgumentException('callback', callback, 'The parameter "callback" has to be a function!')
-    }
-    
-    if (this.count !== null) {
-      callback(this.count)
-      return
-    }
-    
-    $.getJSON(
-      `${this.apiUrl}/search`,
-      {
-        'limit': 1
-      }
-    )
-      // HTTP Status == 200
-      .done((data) => {
-        if (data.status === 200 && data.hasOwnProperty('total_jokes')) {
-          this.count = data.total_jokes
-          callback(this.count)
-        } else {
-          callback(null)
-        }
-      })
-      // HTTP Status != 200
-      .fail((data) => {
-        callback(null)
-      })
-  }
+/*-------------*/
 
-  /**
-   * Retrieves a joke by it's ID.
-   */
-  getJokeById (id, callback) {
-    if (!(callback instanceof Function)) {
-      throw new InvalidArgumentException('callback', callback, 'The parameter "callback" has to be a function!')
-    }
-    
-    if (this.cache.hasOwnProperty(id)) {
-      callback(this.cache[id])
-      return
-    }
-    
-    $.getJSON(
-      `${this.apiUrl}/j/${id}`
-    )
-      // HTTP Status == 200
-      .done((data) => {
-        if (data.status === 200 && data.hasOwnProperty('joke')) {
-          this.cache[id] = data
-          callback(this.cache[id])
-        } else {
-          callback(null)
-        }
-      })
-      // HTTP Status != 200
-      .fail((data) => {
-        callback(null)
-      })
-  }
-  
-  getOneByOne(page, callback) {
-    $.getJSON(
-      `${this.apiUrl}/search`,
-      {
-        'limit': 1,
-        'page': page
-      }
-    )
-      // HTTP Status == 200
-      .done((data) => {
-        if (data.status === 200 && data.hasOwnProperty('results')) {
-          let previous = null
-          let next = null;
-            
-          if (data.previous_page !== page) {
-            previous = data.previous_page;
-          }
-          
-          if (data.next_page !== page) {
-            next = data.next_page;
-          }
-          
-          callback({
-            'joke': data.results[0].joke,            
-            'id': data.results[0].id,
-            'current': page,
-            'previous': previous,
-            'next': next,
-            'total': data.total_pages
-          })
-        } else {
-          callback(null)
-        }
-      })
-      // HTTP Status != 200
-      .fail((data) => {
-        callback(null)
-      })
-  }
+var jokecount = 0
+
+//source: http://www.jokes4us.com/celebrityjokes/donaldtrumpjokes.html
+
+var dtjokes = [
+  "What is Donald Trump telling all his supporters? Orange Is The New Black.",
+  "How is Donald Trump going to shut down the Department of Education? By renaming it Trump University.", 
+  "If minorities have the race card and women have the gender card, what do rednecks have? The Trump Card",
+  "Why is Donald Trump always seen with Melania? Because all his other wives support Hillary.",
+  "What is Donald Trumps biggest dilemma now that he's president? Finding a cabinet position for the thing on his head!",
+  "Where's Donald Trump's favorite place to shop? Wall-mart!",
+  "What do Donald Trump and a baby have in common? They both whine alot!",
+  "What do you call a Disney Princess that supports Donald Trump? Snow White Supremacist.",
+  "Why can't you compare Donald Trump to cancer? Because sometimes you can get rid of cancer.",
+  "Whats Donald Trump's favorite nation? Discrimination.",
+  "Humpty Trumpty wants a great wall. Humpty Trumpty wants Mexico to pay for it all.",
+  "What do you call it, when a brainless creature takes over the world? The Trump-ocalypse."
+]
+function telldtjokes(){
+ document.getElementById("dtjokes").innerHTML = dtjokes[jokecount]
+ jokecount += 1 
+if(jokecount > rjokes.length -1){
+  jokecount = 0
+}
+ 
 }
 
-class DadJokeForm {
-  constructor() {
-    this.elements = {
-      'form': $('#joke-form'),
-      'jokeNumber': $('#joke-number'),
-      'controls': {
-        'prev': $('#joke-control-prev'),
-        'random': $('#joke-control-random'),
-        'next': $('#joke-control-next')
-      },
-      'text': $('#joke-text'),
-      'errorText': $('#error-text'),
-      'loading': $('#joke-loading')
-    }
-    
-    this.DadJokes = new DadJokeApi()
-    this.page = 1;
-    this.totalPages = null
-    this.prev = null
-    this.next = null
-  }
-  
-  init() {
-    this.registerEvents();
+/*-------------*/
 
-    this.DadJokes.getOneByOne(this.page, (data) => {
-        console.log(data)
+//source:https://www.beano.com
 
-        if (data === null) {
-          this.showError('We could not load a Joke from the API. Please try again later.')
-        } else {
-          this.next = data.next
-          this.prev = data.previous
-          this.totalPages = data.total
-          this.showJoke(data)
-        }   
-    })
-  }
-  
-  registerEvents() {
-    this.elements.form.submit((e) => {
-      e.preventDefault()
-      const jokeId = this.elements.jokeNumber.val().trim();
-      
-      this.DadJokes.getJokeById(jokeId, (data) => {        
-        if (data === null) {
-          this.showError('Unknown Joke ID')
-        } else {
-          this.showJoke(data)
-        }
-      })
-    })
-    
-    this.elements.controls.prev.click((e) => {
-      e.preventDefault()
-        
-      if (this.prev !== null && this.next !== null) {
-          this.loadPage(this.prev)
-      }
-    })
 
-    this.elements.controls.next.click((e) => {
-      e.preventDefault()
+var jokecount = 0
 
-      if (this.next !== null) {
-        this.elements.controls.prev.removeAttr( 'disabled' )
-        this.loadPage(this.next);
-      }
-    })
-    
-    this.elements.controls.random.click((e) => {
-      e.preventDefault()
-      this.elements.controls.next.removeAttr( 'disabled' )
-      this.elements.controls.prev.removeAttr( 'disabled' )
-      this.loadRandom()
-    })
-  }
-  
-  loadPage(page, callback) {
-    this.DadJokes.getOneByOne(page, (data) => {
-      if (data === null) {
-        this.showError('We could not load a Joke from the API. Please try again later.')
-      } else {
-        this.next = data.next
-        this.prev = data.previous
-        this.showJoke(data)
-        
-        this.changeDisabledState(
-          this.elements.controls.prev,
-          (this.prev === null)
-        )
-        
-        this.changeDisabledState(
-          this.elements.controls.next,
-          (this.next === null)
-        )
-      }   
-    })  
-  }
-  
-  loadRandom() {
-    const page = this.getRandomIntInclusive(1, this.totalPages)
-    this.loadPage(page)
-  }
-  
-  showJoke(data) {
-    this.elements.text.html(data.joke + '<br/>' + 'joke ID : ' + data.id)
-    this.elements.loading.addClass('hidden')
-    this.elements.text.removeClass('hidden')
-    this.elements.errorText.addClass('hidden')
-  }
-  
-  showError(message) {
-    this.elements.text.addClass('hidden')
-    this.elements.loading.addClass('hidden')
-    
-    this.elements.errorText.html(message)
-    this.elements.errorText.removeClass('hidden')
-  }
-  
-  getRandomIntInclusive(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+var rjokes = [
+  "What do cows like to watch on Netflix? A good moo-vie.",
+  "Why did Cinderella not get picked for the basketball team? She kept running away from the ball.", 
+  "What sits at the bottom of the sea and bites its nails? A nervous wreck!",
+  "I hate Russian dolls. They're so full of themselves?",
+  "What do you call a fish with noe eye? fsh!",
+  "What's orange and sounds like a parrot? A carrot.",
+  "What do you call a magical dog? A labracadabrador!.",
+  "What's a sheep's favourite food? A baaaanana.",
+  "What's a vampire's favourite fruit? A neck-tarine!",
+  "What did the bored goat say? Mehhh.",
+  "What do you call a goat that paints pictures? Vincent Van Goat.",
+  "What mouse was a Roman emporer? Juilius Cheeser!",
+  "What did the tree say to the other tree? You look leafy.",
+  "What did mummy pasta say to baby pasta? It's pasta your bedtime!"
+]
+function tellrjokes(){
+ document.getElementById("rjokes").innerHTML = rjokes[jokecount]
+ jokecount += 1 
+if(jokecount > rjokes.length -1){
+  jokecount = 0
 }
-
-const jokeForm = new DadJokeForm();
-jokeForm.init();
+ 
+}
